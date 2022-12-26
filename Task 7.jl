@@ -11,3 +11,9 @@ end
 function inverse(side)
     HorizonSide(mod(Int(side)+2,4))
 end
+
+function moves!(r, side, n)
+    for _ in 1:n
+        move!(r, side)
+    end
+end
