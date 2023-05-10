@@ -10,7 +10,7 @@ function gcdx_(a::Int, b::Int)
     u, v = 1, 0
     u_, v_ = v, u
     while !iszero(b)
-        r, k = rem(a, b), div(a, b)
+        r, k = divrem(a, b)
         a, b = b, r # r = a - k*b0
         u, u_ = u_, u - k * u_
         v, v_ = v_, v - k * v_
