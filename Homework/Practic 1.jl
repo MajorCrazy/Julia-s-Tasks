@@ -1,8 +1,8 @@
-function gcd(a::T, b::T) where T 
-    while !iszero(a)
+function gcd(a::Int, b::Int)
+    while !iszero(b)
         a, b = b, rem(a, b)
     end
-    return a < 0 ? -aT : a
+    return abs(a)
 end
 
 function gcdx_(a::T, b::T) where T
@@ -16,3 +16,7 @@ function gcdx_(a::T, b::T) where T
         v, v_ = v_, v-k*v_
     end
 end
+
+
+#include("Имя файла.jl")
+#print(Имя функции(переменные, если есть))
