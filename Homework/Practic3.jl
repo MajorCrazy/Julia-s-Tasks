@@ -9,8 +9,6 @@ function isprime(n::IntType) where IntType <: Integer
     return true
 end
  
-# println(isprime(8))
- 
 # 2. Функция, реализующая "решето" Эратосфена, т.е. возвращающую вектор всех простых чисел, не превосходящих заданное число.
 
 function eratosphenes_sieve(n::Integer)
@@ -18,13 +16,13 @@ function eratosphenes_sieve(n::Integer)
     prime_indexes[begin] = false
     i = 2
     prime_indexes[i^2:i:n] .= false 
-    i=3
+    i = 3
     while i <= n
         prime_indexes[i^2:2i:n] .= false
  
-        i+=1
+        i += 1
         while i <= n && prime_indexes[i] == false
-            i+=1
+            i += 1
         end
     end
     return findall(prime_indexes)
@@ -37,17 +35,17 @@ function factorize(n::IntType) where IntType <: Integer
     for p in eratosphenes_sieve(Int(ceil(n/2)))
     k = degree(n, p) 
     if k > 0
-    push!(list, (div=p, deg=k))
+    push!(list, (div = p, deg = k))
     end
     end
     return list
    end
    function degree(n, p) 
     k=0
-    n, r = divrem(n,p)
+    n, r = divrem(n, p)
     while n > 0 && r == 0
     k += 1
-    n, r = divrem(n,p)
+    n, r = divrem(n, p)
     end
     return k
 end
@@ -61,5 +59,5 @@ function meanstd(aaa)
     n += 1; s¹ .+= a; s² += a*a
     end
     mean = s¹ ./ n
-    return mean, sqrt(s²/n - mean*mean)
+    return mean, sqrt(s²/n - mean * mean)
 end
