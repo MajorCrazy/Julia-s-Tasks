@@ -1,7 +1,7 @@
 using Plots
 using LinearAlgebra
 
-# 1. Спроектировать типы Vector2D и Segment2D с соответсвующими функциями.
+# 1. Спроектировать типы Vector2D и Segment2D с соответсвующими функциями
 
 Vector2D{T <: Real} = NamedTuple{(:x, :y), Tuple{T,T}}
 
