@@ -9,7 +9,6 @@ end
 
 # 2. Функция, реализующая расширенный алгоритм Евклида, вычисляющий не только НОД, но и коэффициенты его линейного представления
 
-
 function gcdx_(a::Int, b::Int)
     # a0, b0 = a, b
     u, v = 1, 0
@@ -25,9 +24,6 @@ function gcdx_(a::Int, b::Int)
     end
     return a, u, v
 end
-
-isnegative(a::Integer) = (a < 0)
-
 # 3. С использованием функции gcdx_ реаализовать функцию invmod_(a::T, M::T) where T, 
 # которая бы возвращала бы обратное значение инвертируемого элемента (a) кольца вычетов по модулю M, а для необращаемых элементов возвращала бы nothing.
 
@@ -39,11 +35,24 @@ function invmod_(a::Int, M::Int)
     end
 end
 
-#4
-
-# 5. Для вычислений в кольце вычетов по модулю M определить специальный тип
-
-struct Residue{T,M}
-    a::T where{T<:Int64}
-    Residue{T,M}(a) where{T<:Int64,M} = new(mod(a,M))
+function diaphant_solve(a::Int,b::Int,c::Int)
+    if mod(c, gcd(a,b)) != 0
+        return nothing
+    end
+    return gcdx_(a, b)[2:3]
 end
+
+# 5. Для вычислений в кольце вычетов по модулю M определить специальный тип и определить для этого типа следующие операци и функции:
+# +, -, унарный минус, *, ^, inverse (обращает обратимые элементы), display (определяет, в каком виде значение будет выводиться в REPL)
+
+struct Residue{T, M}
+    a::T where{T<:Int64}
+    Residue{T, M}(a) where{T<:Int64, M} = new(mod(a, M))
+end
+
+
+Base. +(a::Residue{T,M}, b::Residue{T,M}) where {T<:Int64, M} = Z{T,M}(a.a+b.a)
+Base. -(a::Residue{T,M}, b::Residue{T,M}) where {T<:Int64, M} = Z{T,M}(a.a-b.a)
+Base. *(a::Residue{T,M}, b::Residue{T,M}) where {T<:Int64, M} = Z{T,M}(a.a*b.a)
+Base. -(a::Residue{T,M}) where {T<:Int64, M} = Z{T,M}(-a.a)
+Base. display(a::Residue{T,M}) where{T<:Int64,M} = println(a.a)
